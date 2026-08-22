@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "workspace": "..",
+  "task": {"objective": "Implement the requested repository change."},
+  "providers": {"claude":{"preset":"claude-code"},"gpt":{"preset":"openai"}},
+  "agents": [
+    {"id":"claude-builder","provider":"claude","model":"sonnet","mode":"workspace","roles":["builder"],"capabilities":["filesystem","terminal"]},
+    {"id":"gpt-critic","provider":"gpt","model":"gpt-5.6-sol","mode":"advisory","roles":["critic"],"capabilities":["reasoning"]}
+  ],
+  "workflow":{"builder":"claude-builder","critics":["gpt-critic"],"maxRounds":3,"requireIndependentCritic":true,"requireCleanWorkspace":true},
+  "verification":{"required":true,"commands":[],"webui":{"enabled":false}}
+}

@@ -1,0 +1,48 @@
+{
+  "name": "universal-gauntlet-runtime",
+  "version": "1.0.0",
+  "description": "Provider-neutral adversarial LLM engineering runtime for local/cloud APIs, coding CLIs, terminal agents, and browser evidence.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "bin": {
+    "gauntlet": "./src/cli.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "doctor": "node src/cli.mjs doctor",
+    "providers": "node src/cli.mjs providers",
+    "run": "node src/cli.mjs run",
+    "invoke": "node src/cli.mjs invoke",
+    "webui:render": "node src/cli.mjs render",
+    "webui:verify": "node src/cli.mjs verify-evidence",
+    "test": "node --test tests/config.test.mjs tests/adapters.test.mjs tests/git.test.mjs tests/orchestrator.test.mjs",
+    "test:syntax": "find src tests -name '*.mjs' -print0 | xargs -0 -n1 node --check",
+    "validate": "npm run test:syntax && npm test",
+    "test:browser": "node --test tests/browser.test.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aibotjock/gauntletloop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aibotjock/gauntletloop/issues"
+  },
+  "homepage": "https://github.com/aibotjock/gauntletloop#readme",
+  "keywords": [
+    "llm",
+    "agents",
+    "codex",
+    "claude",
+    "grok",
+    "local-ai",
+    "playwright",
+    "evaluation",
+    "multi-model"
+  ]
+}

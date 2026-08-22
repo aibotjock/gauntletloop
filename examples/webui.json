@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "workspace": "..",
+  "task": {"objective": "Build or improve the WebUI and meet the external quality bar."},
+  "providers": {"builder":{"preset":"codex"},"critic":{"preset":"anthropic"}},
+  "agents": [
+    {"id":"codex-builder","provider":"builder","model":"gpt-5.6-sol","mode":"workspace","roles":["builder"],"capabilities":["filesystem","terminal"]},
+    {"id":"claude-critic","provider":"critic","model":"YOUR_ANTHROPIC_MODEL","mode":"advisory","roles":["critic"],"capabilities":["vision","reasoning"]}
+  ],
+  "workflow":{"builder":"codex-builder","critics":["claude-critic"],"maxRounds":4,"requireIndependentCritic":true,"requireCleanWorkspace":true},
+  "verification": {
+    "required": true,
+    "commands": [],
+    "webui": {
+      "enabled": true,
+      "routes":[{"name":"home","path":"/"}],
+      "viewports":[
+        {"name":"desktop","width":1440,"height":1000,"required":true},
+        {"name":"compact","width":1100,"height":900,"required":true},
+        {"name":"mobile","width":390,"height":844,"required":true}
+      ],
+      "interactions":[],
+      "policy":{"failOnConsoleErrors":true,"failOnRequestFailures":true,"failOnHorizontalOverflow":true,"failOnA11yHeuristics":true}
+    }
+  }
+}

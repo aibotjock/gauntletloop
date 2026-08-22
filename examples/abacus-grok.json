@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "workspace": "..",
+  "task": {"objective": "Implement and independently evaluate the requested change."},
+  "providers": {"abacus":{"preset":"abacus-responses"},"grok":{"preset":"xai"}},
+  "agents": [
+    {"id":"abacus-builder","provider":"abacus","model":"gpt-5.6","mode":"patch","roles":["builder"]},
+    {"id":"grok-critic","provider":"grok","model":"YOUR_GROK_MODEL","mode":"advisory","roles":["critic"]}
+  ],
+  "workflow":{"builder":"abacus-builder","critics":["grok-critic"],"maxRounds":3,"requireIndependentCritic":true,"requireCleanWorkspace":true},
+  "verification":{"required":true,"commands":[],"webui":{"enabled":false}}
+}

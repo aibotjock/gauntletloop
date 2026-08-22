@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "..",
+  "task": {"objective": "Implement the requested change using only local inference."},
+  "providers": {
+    "local-builder": {"preset": "lmstudio"},
+    "local-critic": {"preset": "ollama"}
+  },
+  "agents": [
+    {"id":"local-builder","provider":"local-builder","model":"qwen3-coder","mode":"patch","roles":["builder"],"capabilities":["reasoning"]},
+    {"id":"local-critic","provider":"local-critic","model":"qwen3:30b","mode":"advisory","roles":["critic"],"capabilities":["reasoning"]}
+  ],
+  "workflow": {"builder":"local-builder","critics":["local-critic"],"maxRounds":3,"requireIndependentCritic":true,"requireCleanWorkspace":true},
+  "verification": {"required":true,"commands":[],"webui":{"enabled":false}},
+  "security": {"blockedPaths":[".github/workflows/"]}
+}

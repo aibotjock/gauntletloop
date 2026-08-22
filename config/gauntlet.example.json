@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "workspace": "..",
+  "task": {
+    "objective": "Implement the requested change and prove it meets the acceptance criteria.",
+    "acceptanceCriteria": [
+      "Required behavior works",
+      "Verification passes",
+      "Independent critic passes"
+    ]
+  },
+  "providers": {
+    "builder": {
+      "preset": "claude-code"
+    },
+    "critic": {
+      "preset": "openai"
+    }
+  },
+  "agents": [
+    {
+      "id": "builder",
+      "provider": "builder",
+      "model": "sonnet",
+      "mode": "workspace",
+      "roles": [
+        "builder"
+      ],
+      "capabilities": [
+        "filesystem",
+        "terminal"
+      ],
+      "priority": 100
+    },
+    {
+      "id": "critic",
+      "provider": "critic",
+      "model": "gpt-5.6-sol",
+      "mode": "advisory",
+      "roles": [
+        "critic"
+      ],
+      "capabilities": [
+        "reasoning"
+      ],
+      "priority": 100
+    }
+  ],
+  "workflow": {
+    "builder": "builder",
+    "critics": [
+      "critic"
+    ],
+    "maxRounds": 3,
+    "passPolicy": "all",
+    "requireIndependentCritic": true,
+    "requireCleanWorkspace": true
+  },
+  "verification": {
+    "required": true,
+    "commands": [
+      {
+        "name": "tests",
+        "command": "npm",
+        "args": [
+          "test"
+        ],
+        "required": true,
+        "timeoutMs": 120000
+      }
+    ],
+    "webui": {
+      "enabled": false
+    }
+  },
+  "security": {
+    "blockedPaths": [
+      ".github/workflows/"
+    ],
+    "maxUntrackedBytes": 2000000
+  }
+}
